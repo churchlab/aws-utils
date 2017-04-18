@@ -32,3 +32,9 @@ Convenient stuff for working with AWS
         sudo mkdir /data
         
         sudo mount /dev/xvdg /data
+        
+6. Allow user to write to location.
+
+        sudo chown -R ubuntu:ubuntu /data
+        
+Now you can do `aws s3 sync` etc. Just let your code know where you mounted.
