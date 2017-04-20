@@ -43,6 +43,8 @@ Until recently most of us were doing the *simple* strategy of creating EC2 insta
 
 Instead, the policy moving forward for 99% of cases is to create EC2 instances backed by EBS w/ maximum size 30Gb. This should be plenty of space for the OS and any software you install. Any data you need to persist should be synced to S3, since S3 charges per-use and is cheaper ($0.023 per GB-month).
 
+Some Marketplace (pre-configured) AMIs have a minimum size so go ahead and do the minimum required there as long it's not over 100 Gb. If it is, talk to me please.
+
 So the flow should look like:
 
 1. Turn on machine.
