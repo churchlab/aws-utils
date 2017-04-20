@@ -11,6 +11,8 @@ Please become very familiar with AWS pricing, especially for [EC2](https://aws.a
 
 When possible, please do your work and store data on Orchestra, etc. That said, there are cases where AWS is appropriate, such as for installing custom software, etc.
 
+If you will be scaling up your usage beyond $50/mo., please talk to me about putting together your own grant, etc.
+
 ## General culture
 
 Please be efficient, careful, and clean with everything. When in doubt, please talk to Gleb. It's easy for lots of cruft to accumulate so everyone's help with this is appreciated. Please stop machines when you are not using them. Please terminate unused instances. Please move data to Orchestra when possible.
