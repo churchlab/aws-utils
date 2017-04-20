@@ -9,7 +9,11 @@ AWS is great for compute because of the ability to create VMs in the cloud with 
 
 Please become very familiar with AWS pricing, especially for [EC2](https://aws.amazon.com/ec2/pricing/on-demand/), [EBS](https://aws.amazon.com/ebs/pricing/), and [S3](https://aws.amazon.com/s3/pricing/). We run all our machines in US East (N. Virginia).
 
-When possible, please do your work and store data on Orchestra, etc. That said, there are cases where AWS is appropriate.
+When possible, please do your work and store data on Orchestra, etc. That said, there are cases where AWS is appropriate, such as for installing custom software, etc.
+
+## General culture
+
+Please be efficient, careful, and clean with everything. When in doubt, please talk to Gleb. It's easy for lots of cruft to accumulate so everyone's help with this is appreciated. Please stop machines when you are not using them. Please terminate unused instances. Please move data to Orchestra when possible.
 
 ## Naming
 
