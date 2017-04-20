@@ -17,6 +17,10 @@ If you will be scaling up your usage beyond $50/mo., please talk to me about put
 
 Please be efficient, careful, and clean with everything. When in doubt, please talk to Gleb. It's easy for lots of cruft to accumulate so everyone's help with this is appreciated. Please stop machines when you are not using them. Please terminate unused instances. Please move data to Orchestra when possible.
 
+## Rules of thumb
+
+* Do everything in US-East (N. Virgina) region and us-east-1a zone. This makes it easy to track and attach EBS etc.
+
 ## Naming
 
 Please name any machines, AMIs, etc. that you create with the following format:
