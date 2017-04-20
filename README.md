@@ -37,8 +37,11 @@ Convenient stuff for working with AWS
 
         sudo chown -R ubuntu:ubuntu /data
         
-Now you can do `aws s3 sync` etc. Just let your code know where you mounted.
+Now you can do `aws s3 sync` etc to the mounted location. Remember to update your code to point to your newly mounted path.
 
+**NOTE**: If you're keeping the attached EBS between boots, you'll have to remount on boot up, or update the `/etc/fstab` file to automatically mount on boot by adding the following line. You should also make a backup of fstab (`cp /etc/fstab /etc/fstab.org`) before you edit it just in case:
+
+        /dev/xvdg /data ext4  defaults,nofail 0 2
 
 ## Sync data from s3 to EC2 instance
 
