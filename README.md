@@ -38,3 +38,23 @@ Convenient stuff for working with AWS
         sudo chown -R ubuntu:ubuntu /data
         
 Now you can do `aws s3 sync` etc. Just let your code know where you mounted.
+
+
+## Sync data from s3 to EC2 instance
+
+Use `sync` to get data. This is better than `cp` in all cases I can think of since it makes the `<local_path>` matches `s3://...` without doing redundant copies. This is nice if transfer gets interrupted, or if a collaborator pushes more data to the bucket.
+
+    aws s3 sync s3://<bucket_name>/<path> <local_path>
+        
+Specific example:
+
+    aws s3 sync s3://mlpe-data/2017_04_08_mlpe_gfp_fix_2_miseq_redo/ /data/2017_04_08_mlpe_gfp_fix_2_miseq_redo/
+    
+## Sync data from EC2 instance back to s3
+
+Just reverse the target and destination:
+
+    aws s3 sync <local_path> s3://<bucket_name>/<path> 
+    
+NOTE: **DO NOT USE `--delete`**. This will delete files in the s3 bucket to make it match what's in the local path. You can imagine really screwing things up if you get this wrong. So if you need to delete files, do it manually, please. Or come to talk to Gleb.
+
