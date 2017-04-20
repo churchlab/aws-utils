@@ -1,6 +1,30 @@
 # aws-utils
 Convenient stuff for working with AWS
 
+## Church Lab AWS Efficiency Policy
+
+The following are strategies for getting the most bang for our AWS dollars. These are evolving and suggestions are welcome. As always, come talk to Gleb for help or clarification.
+
+Until recently most of us were doing the *simple* strategy of creating EC2 instances backed by a single large EBS. The problem here is that EBS is charged independent of whether the machine is on at $0.10/GB, so a 1000 Gb EBS is going at $100/month or $1200/year. Bad. The problem is that most of us only use a fraction of the allocated EBS and then there are long periods between use as per the nature of research.
+
+Instead, the policy moving forward for 99% of cases is to create EC2 instances backed by EBS w/ maximum size 30Gb. This should be plenty of space for the OS and any software you install. Any data you need to persist should be synced to S3, since S3 charges per-use and is cheaper ($0.023 per GB-month).
+
+So the flow should look like:
+
+1. Turn on machine.
+2. Allocate temporary storage (mount ephemeral or attach EBS, see below).
+3. Sync data you need to work with from s3.
+4. Do computations.
+5. Sync updated data back up to s3.
+6. Unmount / delete attached EBS.
+
+For (2) allocating temporary storage, you have two options:
+
+1. Mount ephemeral [Instance Store](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html). This is only available for some instance types. See the [EC2 pricing guide](https://aws.amazon.com/ec2/pricing/on-demand/). Note this gets wiped on reboot.
+
+2. Create and attach external EBS (see instructions below). This is nice and flexible because you can create the EBS volume size you need, use it, then get sync data back to s3, and delete the EBS.
+
+
 ## Create and attach an EBS volume
 
 1. Create EBS volume.
