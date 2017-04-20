@@ -1,5 +1,29 @@
 # aws-utils
-Convenient stuff for working with AWS
+Church Lab AWS policies and helpful commands
+
+*Contact person: Gleb Kuznetsov (gleb.kuznetsov@gmail.com)*
+
+## Introduction
+
+AWS is great for compute because of the ability to create VMs in the cloud with full permissions, etc.. However, it is funded by Amazon grants that were written for specific projects. We're letting others use it as a favor.
+
+Please become very familiar with AWS pricing, especially for [EC2](https://aws.amazon.com/ec2/pricing/on-demand/), [EBS](https://aws.amazon.com/ebs/pricing/), and [S3](https://aws.amazon.com/s3/pricing/). We run all our machines in US East (N. Virginia).
+
+When possible, please do your work and store data on Orchestra, etc. That said, there are cases where AWS is appropriate.
+
+## Naming
+
+Please name any machines, AMIs, etc. that you create with the following format:
+
+        initials_date_purpose
+        
+For example:
+
+        GK_2017_04_20_sequence_all_the_things
+        
+Any machine without a name will be renamed "DELETE_ME" and will be deleted 24 hours later.
+
+No need to name your EBS volumes if they are attached to a machine, but unattached volumes without a name will also be marked for deletion.
 
 ## Church Lab AWS Efficiency Policy
 
@@ -23,7 +47,6 @@ For (2) allocating temporary storage, you have two options:
 1. Mount ephemeral [Instance Store](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html). This is only available for some instance types. See the [EC2 pricing guide](https://aws.amazon.com/ec2/pricing/on-demand/). Note this gets wiped on reboot.
 
 2. Create and attach external EBS (see instructions below). This is nice and flexible because you can create the EBS volume size you need, use it, then get sync data back to s3, and delete the EBS.
-
 
 ## Create and attach an EBS volume
 
