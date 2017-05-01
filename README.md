@@ -62,6 +62,8 @@ For (2) allocating temporary storage, you have two options:
 
 ## Create and attach an EBS volume
 
+**NOTE**: Creating and attacing EBS volumes can also be done from the AWS console. Although mounting (and optionally formatting) the disk  must be done from the EC2 instance. The commands are provided below in case we want to automate this in a script.
+
 1. Create EBS volume.
 
         $ aws ec2 create-volume --size=100 --volume-type=gp2 --availability-zone=us-east-1a
