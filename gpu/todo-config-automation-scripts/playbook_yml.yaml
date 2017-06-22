@@ -1,0 +1,86 @@
+---
+
+- hosts: all
+  vars:
+    nvidia_docker_package_url: https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1-1_amd64.deb
+  become: yes
+  tasks:
+    - name: packages related for APT with https are installed
+      apt:
+        name={{ item }}
+        state=present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+
+    - name: docker release key is registered
+      apt_key:
+        keyserver=hkp://p80.pool.sks-keyservers.net:80
+        id=58118E89F3A912897C070ADBF76221572C52609D
+        state=present
+
+    - name: software-properties-common is installed for prerequisite for apt_repository ansible module
+      apt:
+        name=software-properties-common
+        state=present
+
+    - name: docker APT repository is registered
+      apt_repository:
+        repo='deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main'
+        filename=docker
+        state=present
+        mode=0644
+        update_cache=yes
+      failed_when: ansible_distribution_release not in ['precise', 'trusty', 'wily', 'xenial']
+
+    - name: lxc-docker is purged
+      apt:
+        name=lxc-docker
+        state=absent
+        purge=yes
+
+    - name: linux-image-extra is installed
+      apt:
+        name=linux-image-extra-{{ ansible_kernel }}
+        state=present
+      failed_when: ansible_distribution_release not in ['trusty', 'wily', 'xenial']
+
+    - name: docker is installed
+      apt:
+        name=docker-engine
+        state=present
+
+    - name: Dowload NVIDIA .deb
+      get_url:
+        url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+        dest: /tmp/nvidia.deb
+
+    - name: Install Drivers
+      apt:
+        deb: /tmp/nvidia.deb
+
+    - name: Install NVIDIA packages
+      apt:
+        update_cache: yes
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - cuda-drivers
+        - linux-headers-generic
+        - dkms
+
+    - name: NVIDIA modprobe is installed
+      apt:
+        name=nvidia-modprobe
+        state=present
+
+    - name: disable nonveau, opensource version of nvidia graphics driver
+      lineinfile:
+        dest=/etc/default/grub
+        line='GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT nouveau.modeset=0"'
+        validate='sh -n %s'
+
+    - name: nvidia-docker is installed
+      apt:
+        deb={{ nvidia_docker_package_url }}
+        state=present
