@@ -23,3 +23,6 @@ To use:
         $ nvidia-docker run -it -p 8888:8888 gcr.io/tensorflow/tensorflow:latest-gpu
 
 There will be a delay as the docker downloads the image (first time only). Then Jupyter Notebook will automatically be started. You should see the familiar console output.
+
+Here are some [old notes on interacting with Docker](https://docs.google.com/document/d/1LOHzfwGZiXtuqyZkcBREHHa0-0c853qaFAgQ-X8pqlE/edit?usp=sharing). I'll make a cleaner version of this if we get more into Docker.
+
