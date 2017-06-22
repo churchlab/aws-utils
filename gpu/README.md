@@ -25,3 +25,11 @@ To use:
 There will be a delay as the docker downloads the image (first time only). Then Jupyter Notebook will automatically be started. You should see the familiar console output.
 
 See [notes for working with Docker](../docker/README.md).
+
+## Inspecting GPU usage
+
+It is pretty common when getting started to find that you are not actually using the GPU.
+
+The following command takes a snapshot of Nvidia state every second. If GPU is actually being used, you should see the memory and processor filling up:
+
+    $ watch -n 1 nvidia-smi
