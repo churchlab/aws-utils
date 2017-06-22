@@ -33,3 +33,45 @@ It is pretty common when getting started to find that you are not actually using
 The following command takes a snapshot of Nvidia state every second. If GPU is actually being used, you should see the memory and processor filling up:
 
     $ watch -n 1 nvidia-smi
+    
+## Test that TensorFlow is actually using GPU
+
+Start a shell watch the GPU as above:
+
+    $ watch -n 1 nvidia-smi
+    
+Run the following code (e.g in jupyter notebook):
+
+    import tensorflow as tf
+    with tf.device('/gpu:0'):
+        a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+        b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+        c = tf.matmul(a, b)
+        # Creates a session with log_device_placement set to True.
+        sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+        # Runs the op.
+        print(sess.run(c))
+        
+ Observe NVIDIA-SMI output shows something happening:
+ 
+         Every 1.0s: nvidia-smi                                                                                         Thu Jun 22 18:34:16 2017
+
+        Thu Jun 22 18:34:16 2017
+        +-----------------------------------------------------------------------------+
+        | NVIDIA-SMI 375.66                 Driver Version: 375.66                    |
+        |-------------------------------+----------------------+----------------------+
+        | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+        | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+        |===============================+======================+======================|
+        |   0  Tesla K80           Off  | 0000:00:1E.0     Off |                    0 |
+        | N/A   44C    P0   138W / 149W |   8453MiB / 11439MiB |     78%      Default |
+        +-------------------------------+----------------------+----------------------+
+
+        +-----------------------------------------------------------------------------+
+        | Processes:                                                       GPU Memory |
+        |  GPU       PID  Type  Process name                               Usage      |
+        |=============================================================================|
+        |    0      2641    C   /usr/bin/python                               8451MiB |
+        +-----------------------------------------------------------------------------+
+
+
