@@ -1,0 +1,55 @@
+---
+
+- hosts: all
+  vars:
+    nothing_to_do: nothing
+  become: yes
+  tasks:
+    - name: packages related for APT with https are installed
+      apt:
+        name={{ item }}
+        state=present
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+
+    - name: software-properties-common is installed for prerequisite for apt_repository ansible module
+      apt:
+        name=software-properties-common
+        state=present
+
+    - name: linux-image-extra is installed
+      apt:
+        name=linux-image-extra-{{ ansible_kernel }}
+        state=present
+      failed_when: ansible_distribution_release not in ['trusty', 'wily', 'xenial']
+
+    # - name: Dowload NVIDIA .deb
+    #   get_url:
+    #     url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+    #     dest: /tmp/nvidia.deb
+
+    # - name: Install Drivers
+    #   apt:
+    #     deb: /tmp/nvidia.deb
+
+    # - name: Install NVIDIA packages
+    #   apt:
+    #     update_cache: yes
+    #     name: "{{ item }}"
+    #     state: latest
+    #   with_items:
+    #     - cuda-drivers
+    #     - linux-headers-generic
+    #     - dkms
+
+    - name: NVIDIA modprobe is installed
+      apt:
+        name=nvidia-modprobe
+        state=present
+
+    - name: disable nonveau, opensource version of nvidia graphics driver
+      lineinfile:
+        dest=/etc/default/grub
+        line='GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT nouveau.modeset=0"'
+        validate='sh -n %s'
