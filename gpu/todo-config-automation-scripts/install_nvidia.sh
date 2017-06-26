@@ -40,16 +40,21 @@ apt-get install -y --no-install-recommends linux-headers-generic dkms cuda-drive
 
 # ******************************************************************************
 # 3. Install CUDA DNN and clear list of packages (This is safe)
-apt-get install build-essential cmake git unzip pkg-config
-apt-get install libopenblas-dev liblapack-dev
+apt-get install -y build-essential cmake git unzip pkg-config
+apt-get install -y libopenblas-dev liblapack-dev
 # this is the CUDA Profiler Tools Interface (CUPTI)
-apt-get install libcupti-dev
+apt-get install -y libcupti-dev
 echo "deb ${NVIDIA_CUDA_DNN_URL_ROOT} /" > /etc/apt/sources.list.d/nvidia-ml.list
 apt-get update
 apt-get install -y --no-install-recommends libcudnn6=$CUDNN_VERSION-1+cuda8.0 && \
 rm -rf /var/lib/apt/lists/*
 
-# append environment variables to bash_profile for Ubuntu
+# ******************************************************************************
+# 4. NVIDIA modprobe is installed
+apt-get install -y --no-install-recommendsnvidia-modprobe
+
+# ******************************************************************************
+# 5. Append environment variables to bash_profile for Ubuntu
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"' >> ~/.bash_profile
 echo "export CUDA_HOME=/usr/local/cuda" >> ~/.bash_profile
 # bring variables into the environment

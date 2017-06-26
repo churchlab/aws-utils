@@ -2,6 +2,8 @@
   "variables": {
     "region": "us-east-1",
     "source_ami": "ami-d15a75c7",
+    "subnet_id": "subnet-df2fedf4",
+    "vpc_id": "vpc-a13ca6c4",
     "aws_access_key": "",
     "aws_secret_key": ""
   },
@@ -16,6 +18,8 @@
       "ami_name": "fast-packer-node {{isotime \"2006-01-02T15:04:05Z\" | clean_ami_name}}",
       "instance_type": "t2.medium",
       "enhanced_networking": true,
+      "subnet_id": "{{user `subnet_id`}}",
+      "vpc_id": "{{user `vpc_id`}}",
       "launch_block_device_mappings": [{
         "delete_on_termination": true,
         "device_name": "/dev/sda1",
