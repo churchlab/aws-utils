@@ -3,15 +3,19 @@
     "region": "us-east-1",
     "source_ami": "ami-d15a75c7",
     "subnet_id": "subnet-712d181f",
-    "vpc_id": "vpc-XXXXX"
+    "vpc_id": "vpc-XXXXX",
+    "aws_access_key": "",
+    "aws_secret_key": ""
   },
   "builders": [
     {
       "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
       "region": "{{user `region`}}",
       "source_ami": "{{user `source_ami`}}",
       "ssh_username": "ubuntu",
-      "ami_name": "dl-cluster-node {{isotime \"2006-01-02T15:04:05Z\" | clean_ami_name}}",
+      "ami_name": "fast-packer-node {{isotime \"2006-01-02T15:04:05Z\" | clean_ami_name}}",
       "instance_type": "t2.medium",
       "subnet_id": "{{user `subnet_id`}}",
       "vpc_id": "{{user `vpc_id`}}",
@@ -27,7 +31,13 @@
   "provisioners": [
     {
       "type": "shell",
-      "script": "install_nvidia.sh",
+      "inline": [
+        "sudo apt-get install libcupti-dev"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "./install_nvidia.sh",
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
     {
@@ -37,41 +47,22 @@
     },
     {
       "type": "shell",
-      "script": "install_python.sh",
+      "script": "./install_python.sh",
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
     {
       "type": "shell",
-      "inline": [
-        "sudo apt-get update",
-        "sudo apt-get install -y rpcbind nfs-common nfs-kernel-server rxvt cachefilesd",
-        "sudo apt-get clean"
-      ]
-    },
-    {
-      "type": "shell",
-      "inline": [
-        "sudo apt-get install libcupti-dev"
-      ]
-    },
-    {
-      "type": "shell",
-      "script": "../scripts/install_ena.sh",
+      "script": "./install_tensorflow.sh",
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
-
     {
       "type": "shell",
-      "inline": [
-        "sudo docker pull tensorflow/tensorflow:1.1.0-devel-gpu",
-        "sudo docker pull tensorflow/tensorflow:1.2.0-devel-gpu",
-        "sudo docker pull spotify/docker-gc",
-        "echo 'tensorflow/tensorflow:.*\nspotify/docker-gc' | sudo tee /etc/docker-gc-exclude"
-      ]
+      "script": "./install_ena.sh",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
     {
       "type": "shell",
-      "script": "../scripts/cleanup.sh",
+      "script": "./cleanup.sh",
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     }
   ]
