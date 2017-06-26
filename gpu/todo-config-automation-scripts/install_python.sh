@@ -10,11 +10,11 @@ apt-get install build-essential libssl-dev libffi-dev python3-dev
 # install AWS CLI globally
 pip3 install awscli
 
-# Install virtual environment stuff
+# Install virtual environment stuff, make a vitualenvwrapper home vw_venvs
 apt-get install -y python3-venv
 pip3 install virtualenvwrapper
-mkdir venvs
-echo "export WORKON_HOME=~/venvs" >> ~/.bashrc
+mkdir vw_venvs
+echo "export WORKON_HOME=~/vw_venvs" >> ~/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh\n" >> ~/.bashrc
 source ~/.bashrc
 

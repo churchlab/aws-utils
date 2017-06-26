@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# set up linux headers and files for AMS
+
 set -eux
 
 apt-get update

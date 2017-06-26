@@ -2,8 +2,6 @@
   "variables": {
     "region": "us-east-1",
     "source_ami": "ami-d15a75c7",
-    "subnet_id": "subnet-712d181f",
-    "vpc_id": "vpc-XXXXX",
     "aws_access_key": "",
     "aws_secret_key": ""
   },
@@ -17,8 +15,6 @@
       "ssh_username": "ubuntu",
       "ami_name": "fast-packer-node {{isotime \"2006-01-02T15:04:05Z\" | clean_ami_name}}",
       "instance_type": "t2.medium",
-      "subnet_id": "{{user `subnet_id`}}",
-      "vpc_id": "{{user `vpc_id`}}",
       "enhanced_networking": true,
       "launch_block_device_mappings": [{
         "delete_on_termination": true,
@@ -31,9 +27,13 @@
   "provisioners": [
     {
       "type": "shell",
-      "inline": [
-        "sudo apt-get install libcupti-dev"
-      ]
+      "script": "./install_python.sh",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
+    },
+    {
+      "type": "shell",
+      "script": "./install_aws.sh",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
     {
       "type": "shell",
@@ -47,17 +47,7 @@
     },
     {
       "type": "shell",
-      "script": "./install_python.sh",
-      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
-    },
-    {
-      "type": "shell",
       "script": "./install_tensorflow.sh",
-      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
-    },
-    {
-      "type": "shell",
-      "script": "./install_ena.sh",
       "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'"
     },
     {
