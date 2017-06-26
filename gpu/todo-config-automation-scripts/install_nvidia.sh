@@ -53,4 +53,4 @@ rm -rf /var/lib/apt/lists/*
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"' >> ~/.bash_profile
 echo "export CUDA_HOME=/usr/local/cuda" >> ~/.bash_profile
 # bring variables into the environment
-source .bash_profile
+source ~/.bash_profile
