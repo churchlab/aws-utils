@@ -4,9 +4,9 @@
 
 # ******************************************************************************
 apt-get update
-apt-get -y upgrade
+
 apt-get install -y python3-pip
-apt-get install build-essential libssl-dev libffi-dev python3-dev
+apt-get install -y build-essential libssl-dev libffi-dev python3-dev
 
 # ******************************************************************************
 # install AWS CLI globally

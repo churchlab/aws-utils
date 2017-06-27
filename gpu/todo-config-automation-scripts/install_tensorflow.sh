@@ -10,10 +10,10 @@ export TF_BINARY_URL_CPU=https://storage.googleapis.com/tensorflow/linux/cpu/ten
 # Requires CUDA toolkit 8.0 and CuDNN v5. For other versions, see "Installing from sources" below.
 export TF_BINARY_URL_GPU=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp35-cp35m-linux_x86_64.whl
 
-export TF_BINARY_URL=TF_BINARY_URL_GPU
+export TF_BINARY_URL=${TF_BINARY_URL_GPU}
 
 # Python 3
-pip3 install --upgrade $TF_BINARY_URL
+pip3 install --upgrade ${TF_BINARY_URL}
 pip3 install ipython
 
 # will choose python3 and give the environment access to the system site-packages

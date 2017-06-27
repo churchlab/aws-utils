@@ -5,18 +5,18 @@
     nothing_to_do: nothing
   become: yes
   tasks:
+    - name: sleep for a specified interval
+      command: sleep 6
     - name: linux-image-extra is installed
       apt:
         name=linux-image-extra-{{ ansible_kernel }}
         state=present
       failed_when: ansible_distribution_release not in ['trusty', 'wily', 'xenial']
-
     - name: disable nonveau, opensource version of nvidia graphics driver
       lineinfile:
         dest=/etc/default/grub
         line='GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT nouveau.modeset=0"'
         validate='sh -n %s'
-
     - name: packages related for APT with https are installed
       apt:
         name={{ item }}
@@ -24,9 +24,9 @@
       with_items:
         - apt-transport-https
         - ca-certificates
-
     - name: software-properties-common is installed for prerequisite for apt_repository ansible module
       apt:
         name=software-properties-common
         state=present
+
 
