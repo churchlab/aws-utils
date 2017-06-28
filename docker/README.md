@@ -4,6 +4,8 @@ This document, in progress, is a cleaner, updated version of [old notes on inter
 
 **NOTE: We typically use NVIDIA Docker, which just means replace `docker` with `nvidia-docker` in commands below.**
 
+## Common commands
+
 List running containers (from host machine shell)
 
     $ docker ps
@@ -22,3 +24,19 @@ that data isn't wiped upon turning off docker. The following command assumes you
 Github repos are in a directory on host called `~/notebooks`:
 
     $ nvidia-docker run -it -p 8888:8888 -v ~/notebooks:/notebooks gcr.io/tensorflow/tensorflow:latest-gpu
+    
+## Cleanup
+
+Sometimes your host machine can fill up with Docker cruft and you need to delete things. I'm not familiar enough with Docker quiet yet, but here are some commands that might be useful, based on <https://gist.github.com/bastman/5b57ddb3c11942094f8d0a97d461b430> and [this Stackoverflow](https://stackoverflow.com/questions/21398087/how-can-i-delete-dockers-images).
+
+This command will delete any docker containers:
+
+    $ docker rm $(docker ps -a -q)
+
+Delete intermediate images created by Docker for optimization purposes:
+
+    $ docker rmi $(docker images | grep "none" | awk '/ / { print $3 }')
+    
+Or you can delete all images:
+
+    $ docker rmi $(docker images -q)
