@@ -16,6 +16,7 @@ else
     echo "****GRUB_CMDLINE_LINUX_DEFAULT fixing"
     ${NOMODESET} >> /etc/default/grub
 fi
+update-initramfs -u
 
 # linux-image-extra is installed
 apt-get install -y linux-image-extra-xenial
@@ -23,3 +24,4 @@ apt-get install -y linux-image-extra-xenial
 apt-get install -y apt-transport-https ca-certificates
 # software-properties-common is installed for prerequisite for apt_repository ansible module
 apt-get install -y software-properties-common
+apt-get install linux-headers-$(uname -r)

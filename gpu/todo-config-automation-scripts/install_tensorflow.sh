@@ -13,7 +13,7 @@ export TF_BINARY_URL_GPU=https://storage.googleapis.com/tensorflow/linux/gpu/ten
 export TF_BINARY_URL=${TF_BINARY_URL_GPU}
 
 # Python 3
-pip3 install --upgrade ${TF_BINARY_URL}
+pip3 install  --ignore-installed --upgrade  ${TF_BINARY_URL}
 pip3 install ipython
 
 # will choose python3 and give the environment access to the system site-packages
