@@ -4,6 +4,16 @@ This document, in progress, is a cleaner, updated version of [old notes on inter
 
 **NOTE: We typically use NVIDIA Docker, which just means replace `docker` with `nvidia-docker` in commands below.**
 
+## Install and Config
+
+Installation instructions:
+
+https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+
+Don't require sudo for docker (https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo):
+
+    $ sudo usermod -aG docker $USER
+
 ## Common commands
 
 List running containers (from host machine shell)
