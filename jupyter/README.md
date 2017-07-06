@@ -20,6 +20,14 @@ Access Jupyter notebook through your local browser at localhost:8888. Use the fu
 
 (Optional): See docs for how to setup a password rather than using the URL token: <http://jupyter-notebook.readthedocs.io/en/latest/public_server.html>
 
+## Virtual environments
+
+TODO: Python 2 virtualenv
+
+### Python 3
+
+Python3 already comes with a way to create virtual environments. Make sure you've first installed Python3. For Mac OSX, you can follow these instructions for [installing Python3](http://python-guide-pt-br.readthedocs.io/en/latest/starting/install3/osx/).
+
 ## Multiple kernels
 
 Jupyter has a non-obvious aspect where, regardless of which environment (read: virtualenv) you start the notebook from, the kernels that are available have to be registered with unique names.
