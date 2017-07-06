@@ -28,6 +28,14 @@ TODO: Python 2 virtualenv
 
 Python3 already comes with a way to create virtual environments. Make sure you've first installed Python3. For Mac OSX, you can follow these instructions for [installing Python3](http://python-guide-pt-br.readthedocs.io/en/latest/starting/install3/osx/).
 
+To create the virtual environment, 
+`python3 -m venv /path/to/new/virtual/environment`
+
+To activate the environment,
+`source /path/to/new/virtual/environment/bin/activate .`
+
+This will set up configure your environment to be self-contained within the virtual environment. You can deactivate it by simply typing `deactivate`.
+
 ## Multiple kernels
 
 Jupyter has a non-obvious aspect where, regardless of which environment (read: virtualenv) you start the notebook from, the kernels that are available have to be registered with unique names.
