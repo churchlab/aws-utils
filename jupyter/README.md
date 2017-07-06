@@ -38,6 +38,15 @@ To activate the environment,
 
 This will set up configure your environment to be self-contained within the virtual environment. You can deactivate it by simply typing `deactivate`.
 
+*Setting up an interactive environment*
+After activating your environment, install jupyter within the environment.
+
+    pip install --upgrade pip
+    pip install jupyter
+    
+
+    
+
 ## Multiple kernels
 
 Jupyter has a non-obvious aspect where, regardless of which environment (read: virtualenv) you start the notebook from, the kernels that are available have to be registered with unique names.
