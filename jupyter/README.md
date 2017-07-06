@@ -38,12 +38,19 @@ To activate the environment,
 
 This will set up configure your environment to be self-contained within the virtual environment. You can deactivate it by simply typing `deactivate`.
 
-*Setting up an interactive environment*
+#### Setting up an interactive environment
 After activating your environment, install jupyter within the environment.
 
     pip install --upgrade pip
     pip install jupyter
     
+Now install the python kernel of our new environment among those recognized by jupyter.
+
+    python -m ipykernel install --user --name <name_of_venv> --display-name "<display_name>"
+  
+Here, `<name_of_venv>` corresponds to the name of the virtual environment. For example if you created the environment at `/path/to/my_venv`, then use `my_venv` for `<name_of_venv>`. The `<display_name>` argument is simply the kernel name that will be displayed in the jupyter notebook interface when you try to create a new notebook, or want to switch between kernels. 
+
+
 
     
 
