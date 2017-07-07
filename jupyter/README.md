@@ -55,6 +55,8 @@ Here, `<name_of_venv>` corresponds to the name of the virtual environment. For e
 
 Now to launch jupyter notebook enter `jupyter notebook`. When creating a new notebook, you should see your newly registered kernel among the options there. At this point it should be fresh (no packages installed). To install new packages inside this new environment, use the pip bundled with the virtualenv (the default if you activate your virtualenv) to install the packages you need. 
 
+NOTE: Jupyter stores information in a centralized location on your computer. Thus while you might install a new jupyter for every new virtualenv you create, kernel specifications will all get dumped to the same place on your computer. Therefore, when trying to create a notebook using the kernel you are interested, you will see among your options other kernels from other virtualenvs. Just ignore these.
+
     
 
 ## Multiple kernels
