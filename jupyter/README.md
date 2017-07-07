@@ -39,11 +39,19 @@ To activate the environment,
 This will set up configure your environment to be self-contained within the virtual environment. You can deactivate it by simply typing `deactivate`.
 
 #### Setting up an interactive environment
-After activating your environment, install jupyter within the environment.
 
-    pip install --upgrade pip
-    pip install jupyter
-    
+##### Do once
+First, `deactivate` any environment you may currently be working in. Type `which pip3` and `which python3` and confirm the Python3 on your path is the one you installed above, and not one bundled in one of your virtualenv directories. On MACs for example, the path of your python3 should be something like `/usr/local/bin/python3`. 
+
+Install jupyter using this Python3.
+
+    pip3 install --upgrade pip3
+    pip3 install jupyter
+
+Consider this to be a sort of "master" jupyter that we will use. Jupyter by default, no matter from where you install it, stores configuration information in `~/.jupyter`. Our task now is simply to register python kernels created in our virtualenvs with this master jupyter so we can write code in notebooks.
+
+##### Do with the creation of each new virtualenv.
+
 Now install the python kernel of our new environment among those recognized by jupyter.
 
     python -m ipykernel install --user --name <name_of_venv> --display-name "<display_name>"
