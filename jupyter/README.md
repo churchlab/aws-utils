@@ -50,7 +50,7 @@ Install jupyter using the master Python3.
 
 Consider this to be the "master" jupyter that we will use. Jupyter by default, no matter from where you install it, stores configuration information in `~/.jupyter`. Our task now is simply to register python kernels created in our virtualenvs with this master jupyter so we can write code in notebooks.
 
-##### Do with the creation of each new virtualenv.
+##### Do with the creation of each new virtualenv
 
 Again, working with the master Python3, install the python kernel of our new environment among those recognized by jupyter.
 
@@ -58,7 +58,7 @@ Again, working with the master Python3, install the python kernel of our new env
   
 Here, `<name_of_venv>` corresponds to the name of the virtual environment. For example if you created the environment at `/path/to/my_venv`, then use `my_venv` for `<name_of_venv>`. The `<display_name>` argument is simply the kernel name that will be displayed in the jupyter notebook interface when you try to create a new notebook, or want to switch between kernels. 
 
-
+Now to launch jupyter notebook enter `jupyter notebook`. When creating a new notebook, you should see your newly registered kernel among the options there. At this point it should be fresh (no packages installed). To install new packages inside this new environment, activate the environment in the terminal and use the pip bundled with the virtualenv to install the packages you need. 
 
     
 
