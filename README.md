@@ -5,13 +5,13 @@ Church Lab AWS policies and helpful commands
 
 ## Introduction
 
-AWS is great for compute because of the ability to create VMs in the cloud with full permissions, etc.. However, it is funded by Amazon grants that were written for specific projects. We're letting others use it as a favor.
+AWS is great for compute because of the ability to create VMs in the cloud with full permissions (e.g. sudo), etc. So far, we have been fortunate to have receive credits from Amazon to support specific projects.
 
 Please become very familiar with AWS pricing, especially for [EC2](https://aws.amazon.com/ec2/pricing/on-demand/), [EBS](https://aws.amazon.com/ebs/pricing/), and [S3](https://aws.amazon.com/s3/pricing/). We run all our machines in US East (N. Virginia).
 
 When possible, please do your work and store data on Orchestra, etc. That said, there are cases where AWS is appropriate, such as for installing custom software, etc.
 
-If you will be scaling up your usage beyond $50/mo., please talk to me about putting together your own grant, etc.
+If you will be scaling up your usage beyond $50/mo., please talk to me about putting together your own AWS credits request.
 
 ## General culture
 
