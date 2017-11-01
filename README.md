@@ -62,37 +62,25 @@ For (2) allocating temporary storage, you have two options:
 
 ## Create and attach an EBS volume
 
-**NOTE**: Creating and attacing EBS volumes can also be done from the AWS console. Although mounting (and optionally formatting) the disk  must be done from the EC2 instance. The commands are provided below in case we want to automate this in a script.
+Similar to the [AWS EBS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html):
 
-1. Create EBS volume.
-
-        $ aws ec2 create-volume --size=100 --volume-type=gp2 --availability-zone=us-east-1a
-        
-        {
-            ...
-            "VolumeId": "vol-xxxxx",
-            ...
-        }
+1. Create EBS volume. This can be done from the [EC2 concosle](https://console.aws.amazon.com/ec2/v2/home) by clicking on Volumes and then the Create Volume button.
     
-2. Get EC2 instance ID to attach volume.
+2. Attach the new volume to the desired EC2 instance by selecting the checkbox next to it and pressing the Actions button and Attach Volume.
+    
+3. Ssh into the EC2 instance and check that the volume is attached:
 
-        $ ec2metadata --instance-id
+        $ lsblk
         
-        i-xxxxx
-        
-3. Attach volume to instance.
+4. Create filesystem on the new volume (assuming it wasn't created before). Make sure to use correct attach point. In this example we use `/dev/xvdf`.
 
-        $ aws ec2 attach-volume --volume-id=vol-xxxxx --instance-id=i-xxxxx --device=/dev/xvdg
+        $ sudo mkfs -t ext4 /dev/xvdf
         
-4. Create filesystem.
-
-        $ sudo mkfs -t ext4 /dev/xvdg
-        
-5. Mount disk.
+5. Mount the disk to be accessible for writing.
 
         sudo mkdir /data
         
-        sudo mount /dev/xvdg /data
+        sudo mount /dev/xvdf /data
         
 6. Allow user to write to location.
 
@@ -102,7 +90,7 @@ Now you can do `aws s3 sync` etc to the mounted location. Remember to update you
 
 **NOTE**: If you're keeping the attached EBS between boots, you'll have to remount on boot up, or update the `/etc/fstab` file to automatically mount on boot by adding the following line. You should also make a backup of fstab (`cp /etc/fstab /etc/fstab.org`) before you edit it just in case:
 
-        /dev/xvdg /data ext4  defaults,nofail 0 2
+        /dev/xvdf /data ext4  defaults,nofail 0 2
 
 ## Sync data from s3 to EC2 instance
 
